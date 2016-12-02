@@ -1,0 +1,226 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Dummy service
+  description: This dummy service has three methods, the first one to simulate the PO method call by the broker, the second one to simulate a TD service and the third one to simulate a UD service 
+  contact:
+    name: WITDOM support
+    url: http://witdom.eu/contact
+    email: "gjimenez@gradiant.org"
+basePath: /v1
+consumes:
+  - "application/json"
+  - "application/xml"
+produces:
+  - "application/json"
+  - "application/xml"
+paths:
+  /execute/{protectionConfigurationId}/{purpose}:
+    post:
+      produces:
+      - "text/plain"
+      tags:
+      - "PO"
+      operationId: "executeProtectionConfiguration"
+      summary: "Executes a protection configuration"
+      parameters:
+        - $ref: '#/parameters/authToken'
+        - $ref: '#/parameters/protectionConfigurationId'
+        - $ref: '#/parameters/purpose'
+        - $ref: '#/parameters/serviceCallParameters'
+      responses:
+        '200':
+          description: "Started the execution of Protection Configuration"
+          schema:
+            $ref: "#/definitions/poResponse"
+        '400':
+          description: "Invalid ID, purpose or malformed BPMN2 xml"
+
+  /dummy_service_td/cb:
+    post:
+      tags:
+      - "dummy_service_td"
+      operationId: "dummyServiceTdCbPOST"
+      description: "A POST method of a TD service that returns results with callback"
+      parameters:
+      - name: "request_data"
+        in: "body"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+    get:
+      tags:
+      - "dummy_service_td"
+      operationId: "dummyServiceTdCbGET"
+      description: "A GET method of a TD service that returns results with callback"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+    parameters:
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        type: "string"
+        required: true
+
+  /dummy_service_td/no_cb:
+    post:
+      tags:
+      - "dummy_service_td"
+      operationId: "dummyServiceTdNoCbPOST"
+      description: "A POST method of a TD service that returns results in the response"
+      parameters:
+      - name: "request_data"
+        in: "body"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+    get:
+      tags:
+      - "dummy_service_td"
+      operationId: "dummyServiceTdNoCbGET"
+      description: "A GET method of a TD service that returns results in the response"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+
+  /dummy_service_ud/cb:
+    post:
+      tags:
+      - "dummy_service_ud"
+      operationId: "dummyServiceUdCbPOST"
+      description: "A POST method of a UD service that returns results with callback"
+      parameters:
+      - name: "request_data"
+        in: "body"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+    get:
+      tags:
+      - "dummy_service_ud"
+      operationId: "dummyServiceUdCbGET"
+      description: "A GET method of a UD service that returns results with callback"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+    parameters:
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        type: "string"
+        required: true
+
+  /dummy_service_ud/no_cb:
+    post:
+      tags:
+      - "dummy_service_ud"
+      operationId: "dummyServiceUdNoCbPOST"
+      description: "A POST method of a UD service that returns results in the response"
+      parameters:
+      - name: "request_data"
+        in: "body"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+    get:
+      tags:
+      - "dummy_service_ud"
+      operationId: "dummyServiceUdNoCbGET"
+      description: "A GET method of a UD service that returns results in the response"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+      
+parameters:
+  authToken:
+    name: X-Auth-Token
+    in: header
+    description: The authentication token to be verified
+    required: true
+    type: string
+  protectionConfigurationId:
+    name: protectionConfigurationId
+    in: path
+    description: The id of the service associate to the protection configuration
+    type: string
+    required: true
+  purpose:
+    name: purpose
+    in: path
+    description: The purpose of the protection configuration
+    type: string
+    enum:
+      - protect
+      - unprotect
+    required: true
+  serviceCallParameters:
+    name: serviceCallParameters
+    in: body
+    description: The same parameters that the application used to call the secured service. It should also include a callback url if a callback is required
+    required: true
+    schema:
+      $ref: "#/definitions/RequestPO"
+      
+
+definitions:
+  poResponse:
+    type: "integer"
+    title: "processInstanceId"
+    format: "int64"
+  Request:
+    type: "object"
+  RequestPO:
+    type: "object"
+    required:
+    - "callbackUrl"
+    - "serviceCallParameters"
+    properties:
+      callbackUrl:
+        type: "string"
+        description: "Callback to notify after processing is done."
+      serviceCallParameters:
+        type: "object"
+        description: "Original parameters received from application"
+  ServiceResult:
+    type: "object"

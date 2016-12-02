@@ -1,0 +1,27 @@
+{
+  "name": "dummy-service",
+  "version": "1.0.0",
+  "description": "This dummy service has three methods, the first one to simulate the PO method call by the broker, the second one to simulate a TD service and the third one to simulate a UD service",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "node index.js",
+  "build_docker": "sudo docker build -t dummy-service .",
+  "run_po": "sudo docker run --name po --add-host=broker:192.168.122.190 -p 8080:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
+  "run_td": "sudo docker run --name service_td --add-host=broker:192.168.122.190 -p 8081:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
+  "run_ud": "sudo docker run --name service_ud --add-host=broker:192.168.122.190 -p 8082:8080 -e \"BROKER_PORT=5100\" -d dummy-service"
+  },  
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1",
+    "superagent": "^3.0.0",
+    "lodash": "^4.16.4",
+    "sleep": "^5.0.0 "
+  }
+}

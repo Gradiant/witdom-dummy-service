@@ -1,0 +1,306 @@
+---
+swagger: "2.0"
+info:
+  description: "This dummy service has three methods, the first one to simulate the\
+    \ PO method call by the broker, the second one to simulate a TD service and the\
+    \ third one to simulate a UD service"
+  version: "1.0.0"
+  title: "Dummy service"
+  contact:
+    name: "WITDOM support"
+    url: "http://witdom.eu/contact"
+    email: "gjimenez@gradiant.org"
+basePath: "/v1"
+consumes:
+- "application/json"
+- "application/xml"
+produces:
+- "application/json"
+- "application/xml"
+paths:
+  /dummy_service_td/cb:
+    get:
+      tags:
+      - "dummy_service_td"
+      description: "A GET method of a TD service that returns results with callback"
+      operationId: "dummyServiceTdCbGET"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyservicetd"
+    post:
+      tags:
+      - "dummy_service_td"
+      description: "A POST method of a TD service that returns results with callback"
+      operationId: "dummyServiceTdCbPOST"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "request_data"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyservicetd"
+  /dummy_service_td/no_cb:
+    get:
+      tags:
+      - "dummy_service_td"
+      description: "A GET method of a TD service that returns results in the response"
+      operationId: "dummyServiceTdNoCbGET"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyservicetd"
+    post:
+      tags:
+      - "dummy_service_td"
+      description: "A POST method of a TD service that returns results in the response"
+      operationId: "dummyServiceTdNoCbPOST"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "request_data"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyservicetd"
+  /dummy_service_ud/cb:
+    get:
+      tags:
+      - "dummy_service_ud"
+      description: "A GET method of a UD service that returns results with callback"
+      operationId: "dummyServiceUdCbGET"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyserviceud"
+    post:
+      tags:
+      - "dummy_service_ud"
+      description: "A POST method of a UD service that returns results with callback"
+      operationId: "dummyServiceUdCbPOST"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: "X-Broker-Callback-URL"
+        in: "header"
+        description: "Callback URL to notify after work is completed."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "request_data"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        202:
+          description: "Service is being processed, result will be send in callback"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyserviceud"
+  /dummy_service_ud/no_cb:
+    get:
+      tags:
+      - "dummy_service_ud"
+      description: "A GET method of a UD service that returns results in the response"
+      operationId: "dummyServiceUdNoCbGET"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyserviceud"
+    post:
+      tags:
+      - "dummy_service_ud"
+      description: "A POST method of a UD service that returns results in the response"
+      operationId: "dummyServiceUdNoCbPOST"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "request_data"
+        description: "Service data"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        200:
+          description: "Result of the service processing"
+          schema:
+            $ref: "#/definitions/ServiceResult"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Dummyserviceud"
+  /execute/{protectionConfigurationId}/{purpose}:
+    post:
+      tags:
+      - "PO"
+      summary: "Executes a protection configuration"
+      operationId: "executeProtectionConfiguration"
+      produces:
+      - "text/plain"
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: "protectionConfigurationId"
+        in: "path"
+        description: "The id of the service associate to the protection configuration"
+        required: true
+        type: "string"
+      - name: "purpose"
+        in: "path"
+        description: "The purpose of the protection configuration"
+        required: true
+        type: "string"
+        enum:
+        - "protect"
+        - "unprotect"
+      - in: "body"
+        name: "serviceCallParameters"
+        description: "The same parameters that the application used to call the secured\
+          \ service. It should also include a callback url if a callback is required"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestPO"
+      responses:
+        200:
+          description: "Started the execution of Protection Configuration"
+          schema:
+            $ref: "#/definitions/poResponse"
+        400:
+          description: "Invalid ID, purpose or malformed BPMN2 xml"
+      x-swagger-router-controller: "PO"
+definitions:
+  poResponse:
+    type: "integer"
+    title: "processInstanceId"
+    format: "int64"
+  Request:
+    type: "object"
+  RequestPO:
+    type: "object"
+    required:
+    - "callbackUrl"
+    - "serviceCallParameters"
+    properties:
+      callbackUrl:
+        type: "string"
+        description: "Callback to notify after processing is done."
+      serviceCallParameters:
+        type: "object"
+        description: "Original parameters received from application"
+        properties: {}
+  ServiceResult:
+    type: "object"
+parameters:
+  authToken:
+    name: "X-Auth-Token"
+    in: "header"
+    description: "The authentication token to be verified"
+    required: true
+    type: "string"
+  protectionConfigurationId:
+    name: "protectionConfigurationId"
+    in: "path"
+    description: "The id of the service associate to the protection configuration"
+    required: true
+    type: "string"
+  purpose:
+    name: "purpose"
+    in: "path"
+    description: "The purpose of the protection configuration"
+    required: true
+    type: "string"
+    enum:
+    - "protect"
+    - "unprotect"
+  serviceCallParameters:
+    in: "body"
+    name: "serviceCallParameters"
+    description: "The same parameters that the application used to call the secured\
+      \ service. It should also include a callback url if a callback is required"
+    required: true
+    schema:
+      $ref: "#/definitions/RequestPO"

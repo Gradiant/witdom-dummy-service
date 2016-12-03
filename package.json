@@ -8,8 +8,11 @@
 	"start": "node index.js",
   "build_docker": "sudo docker build -t dummy-service .",
   "run_po": "sudo docker run --name po --add-host=broker:192.168.122.190 -p 8080:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
+  "run_po2": "sudo docker run --name po --add-host=broker:10.5.1.120 -p 8080:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
   "run_td": "sudo docker run --name service_td --add-host=broker:192.168.122.190 -p 8081:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
-  "run_ud": "sudo docker run --name service_ud --add-host=broker:192.168.122.190 -p 8082:8080 -e \"BROKER_PORT=5100\" -d dummy-service"
+  "run_td2": "sudo docker run --name service_td --add-host=broker:10.5.1.120 -p 8081:8080 -e \"BROKER_PORT=5000\" -d dummy-service",
+  "run_ud": "sudo docker run --name service_ud --add-host=broker:192.168.122.190 -p 8082:8080 -e \"BROKER_PORT=5100\" -d dummy-service",
+  "run_ud2": "sudo docker run --name service_ud --add-host=broker:10.5.1.120 -p 8082:8080 -e \"BROKER_PORT=5100\" -d dummy-service"
   },  
   "keywords": [
     "swagger"

@@ -252,6 +252,53 @@ paths:
         400:
           description: "Invalid ID, purpose or malformed BPMN2 xml"
       x-swagger-router-controller: "PO"
+  /processstatus/{processInstanceId}:
+    get:
+      tags:
+      - "PO"
+      operationId: "processStatus"
+      summary: Returns the current status of the given process instance 
+      parameters:
+      - name: "X-Auth-Token"
+        in: "header"
+        description: "The authentication token to be verified"
+        required: true
+        type: "string"
+      - name: processInstanceId
+        in: path
+        description: The id of the protection process instance from which the protection component was invoked
+        type: integer
+        format: int64
+        required: true
+      responses:
+        200:
+          description: Process instance found
+          schema: 
+            title: Response
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                description: Code related to the process instance state
+                enum: 
+                  - 0
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+              message:
+                type: string
+                description: State of the process instance
+                enum: 
+                  - STATE_PENDING
+                  - STATE_ACTIVE
+                  - STATE_COMPLETED
+                  - STATE_ABORTED
+                  - STATE_SUSPENDED
+        404:
+          description: 'Cannot find process instance'
+      x-swagger-router-controller: "PO"
 definitions:
   poResponse:
     type: "integer"

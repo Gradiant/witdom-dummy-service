@@ -26,7 +26,7 @@ exports.dummyServiceTdCbGET = function(args, res, next) {
   .send(
     { 
         result: {
-		message: "Trusted domain SUCCESS"
+		message: "Trusted domain SUCCESS (GET,cb)"
 	}
     }
   )
@@ -67,7 +67,7 @@ exports.dummyServiceTdCbPOST = function(args, res, next) {
   .send(
     { 
         result: {
-		message: "Trusted domain SUCCESS"
+		message: "Trusted domain SUCCESS (POST,cb)"
 	}
     }
   )
@@ -94,7 +94,7 @@ exports.dummyServiceTdNoCbGET = function(args, res, next) {
     
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Auth-Token', args['X-Auth-Token'].value);
-  res.end(JSON.stringify({result: {message: "Trusted domain SUCCESS"}} || {}, null, 2));
+  res.end(JSON.stringify({result: {message: "Trusted domain SUCCESS (GET,no_cb)"}} || {}, null, 2));
     
 }
 
@@ -109,6 +109,6 @@ exports.dummyServiceTdNoCbPOST = function(args, res, next) {
 
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Auth-Token', args['X-Auth-Token'].value);
-  res.end(JSON.stringify({result: {message: "Trusted domain SUCCESS"}} || {}, null, 2));
+  res.end(JSON.stringify({result: {message: "Trusted domain SUCCESS (POST,no_cb)"}} || {}, null, 2));
   
 }

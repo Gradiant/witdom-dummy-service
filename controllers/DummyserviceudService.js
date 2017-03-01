@@ -26,7 +26,7 @@ exports.dummyServiceUdCbGET = function(args, res, next) {
   .send(
     { 
         result: {
-		message: "Untrusted domain SUCCESS"
+		message: "Untrusted domain SUCCESS (GET,cb)"
 	}
     }
   )
@@ -67,7 +67,7 @@ exports.dummyServiceUdCbPOST = function(args, res, next) {
   .send(
     { 
         result: {
-		message: "Untrusted domain SUCCESS"
+		message: "Untrusted domain SUCCESS (POST,cb)"
 	}
     }
   )
@@ -94,7 +94,7 @@ exports.dummyServiceUdNoCbGET = function(args, res, next) {
     
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Auth-Token', args['X-Auth-Token'].value);
-  res.end(JSON.stringify({result: {message: "Untrusted domain SUCCESS"}} || {}, null, 2));
+  res.end(JSON.stringify({result: {message: "Untrusted domain SUCCESS (GET,no_cb)"}} || {}, null, 2));
   
 }
 
@@ -109,6 +109,6 @@ exports.dummyServiceUdNoCbPOST = function(args, res, next) {
 
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Auth-Token', args['X-Auth-Token'].value);
-  res.end(JSON.stringify({result: {message: "Untrusted domain SUCCESS"}} || {}, null, 2));
+  res.end(JSON.stringify({result: {message: "Untrusted domain SUCCESS (POST,no_cb)"}} || {}, null, 2));
   
 }

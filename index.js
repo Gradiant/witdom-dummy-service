@@ -9,7 +9,7 @@ global.__config = require('./config');
 var serverPort = __config.http.port || 8080;
 
 //console.log(process.env.BROKER_PORT);
-__config.brokerUrlPrefix = __config.brokerProtocol + "://" + __config.brokerHost + ":" + (process.env.BROKER_PORT || __config.brokerPort) + "/v1";
+__config.brokerUrlPrefix = __config.brokerProtocol + "://" + (process.env.BROKER_HOST || __config.brokerHost) + ":" + (process.env.BROKER_PORT || __config.brokerPort) + "/v1";
 console.log(__config.brokerUrlPrefix); 
 
 // swaggerRouter configuration

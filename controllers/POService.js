@@ -11,6 +11,7 @@ var responses = [{code: 0, message: 'STATE_PENDING'},
 
 var processes = [];
 
+
 exports.executeProtectionConfiguration = function(args, res, next) {
   /**
    * parameters expected in the args:
@@ -40,7 +41,7 @@ exports.executeProtectionConfiguration = function(args, res, next) {
         var url = __config.brokerUrlPrefix + args.serviceCallParameters.value.callbackUrl;
         console.log(url);
 
-        var agent = request.agent();
+        var agent = request.agent(__config.httpsOptions);
 
         agent.post(url)
         .set('Content-Type', 'application/json')

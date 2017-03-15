@@ -18,7 +18,7 @@ exports.dummyServiceTdCbGET = function(args, res, next) {
   var url = __config.brokerUrlPrefix + args['X-Broker-Callback-URL'].value;
   console.log(url);
 
-  var agent = request.agent();
+  var agent = request.agent(__config.httpsOptions);
 
   agent.post(url)
   .set('Content-Type', 'application/json')
@@ -59,7 +59,7 @@ exports.dummyServiceTdCbPOST = function(args, res, next) {
   var url = __config.brokerUrlPrefix + args['X-Broker-Callback-URL'].value;
   console.log(url);
 
-  var agent = request.agent();
+  var agent = request.agent(__config.httpsOptions);
 
   agent.post(url)
   .set('Content-Type', 'application/json')

@@ -10,13 +10,17 @@ RUN npm install
 
 # Bundle app source
 COPY index.js ./
+COPY config_and_start.sh ./
 COPY api/. api/
+COPY certs/. certs/
 COPY config/. config/
 COPY controllers/. controllers/
 
 EXPOSE 8080
+EXPOSE 8443
 
-CMD [ "npm", "start" ]
+#CMD [ "npm", "start" ]
+CMD [ "./config_and_start.sh" ]
 
 # For the image build: $ docker build -t dummy-service .
 # For the container run: $ docker run --name po --add-host=broker:10.5.1.120 -p 8080:8080 -e "BROKER_PORT=5000" -d dummy-service

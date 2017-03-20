@@ -217,7 +217,7 @@ paths:
       summary: "Executes a protection configuration"
       operationId: "executeProtectionConfiguration"
       produces:
-      - "text/plain"
+      - "application/json"
       parameters:
       - name: "X-Auth-Token"
         in: "header"
@@ -301,9 +301,15 @@ paths:
       x-swagger-router-controller: "PO"
 definitions:
   poResponse:
-    type: "integer"
-    title: "processInstanceId"
-    format: "int64"
+    type: "object"
+    title: "Response"
+    properties:
+      processInstanceId:
+        type: "integer"
+        format: "int64"
+      randomUUID:
+        type: "integer"
+        format: "int32"
   Request:
     type: "object"
   RequestPO:

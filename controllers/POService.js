@@ -24,8 +24,10 @@ exports.executeProtectionConfiguration = function(args, res, next) {
 
   console.log("processInstanceId: " + processInstanceId);
 
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('' + processInstanceId);
+  //res.setHeader('Content-Type', 'text/plain');
+  //res.end('' + processInstanceId);
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({processInstanceId:processInstanceId, randomUUID: 12345}));
 
   processes.push(responses[0]);
 

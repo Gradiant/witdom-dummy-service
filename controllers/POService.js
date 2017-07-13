@@ -22,6 +22,7 @@ exports.executeProtectionConfiguration = function(args, res, next) {
   **/
   var processInstanceId = processes.length;
 
+  console.log("protectionConfigurationId selected: " + args.protectionConfigurationId.value)
   console.log("processInstanceId: " + processInstanceId);
 
   //res.setHeader('Content-Type', 'text/plain');

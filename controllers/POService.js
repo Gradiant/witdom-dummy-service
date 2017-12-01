@@ -38,6 +38,25 @@ exports.executeProtectionConfiguration = function(args, res, next) {
 
     processes[processInstanceId] = responses[1];
 
+    var theresults = [
+        {
+            key: "modifiedServiceParams",
+            value: args.serviceCallParameters.value.serviceCallParameters 
+        }
+    ];
+    // if (args.purpose.value == 'protect') {
+    //     theresults.push({
+    //         key: "unprotectParams",
+    //         value: {
+    //             database_table: "thetable",
+    //             database_id: "theid",
+    //             uri: "http://imauri"
+    //         }
+    //     });
+    // }
+
+    console.log(JSON.stringify(theresults,null,2));
+
     setTimeout(function() {
         processes[processInstanceId] = responses[2];
 
@@ -48,17 +67,34 @@ exports.executeProtectionConfiguration = function(args, res, next) {
 
         agent.post(url)
         .set('Content-Type', 'application/json')
+        // .send(
+        //     { 
+        //         status: 'success',
+        //         results: [
+        //             {
+        //                 key: "modifiedServiceParams",
+        //                 value: args.serviceCallParameters.value.serviceCallParameters 
+        //             }
+        //         ]
+        //     }
+        // )
         .send(
             { 
                 status: 'success',
-                results: [
-                    {
-                        key: "modifiedServiceParams",
-                        value: args.serviceCallParameters.value.serviceCallParameters 
-                    }
-                ]
+                results: theresults
             }
         )
+        // .send(
+        //     { 
+        //         status: 'failure',
+        //         failed_component: {
+        //             name: "SSP",
+        //             reason: {
+        //                 Error:"Source table 'RS_Dataset_5' not found"
+        //             }
+        //         }
+        //     }
+        // )
         .end(function(error, response) {
             if (error) {
                 console.log("error:" + error);
